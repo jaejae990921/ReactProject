@@ -8,6 +8,7 @@ const MenuWrapper = styled.div`
   width: 260px;
   height: 100%;
   background-color: #202123;
+  position: absolute;
 `;
 
 export default function Menu() {
