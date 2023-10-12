@@ -1,11 +1,12 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import Menu from './components/Menu';
-import Input from './components/Input';
+import Main from './components/Main';
 
 const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
+    color: white;
   }
 `;
 
@@ -21,7 +22,7 @@ function App() {
       <GlobalStyle />
       <Wrapper>
         <Menu />
-        <Input />
+        <Main />
       </Wrapper>
     </>
   );
