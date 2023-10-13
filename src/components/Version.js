@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import GptTab from './GptTab';
 
 const StBigDiv = styled.div`
-  height: 120px;
+  height: 100px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding-bottom: 20px;
 `;
 
 const StSmallDiv = styled.div`
@@ -20,17 +19,6 @@ const StSmallDiv = styled.div`
   flex-direction: row;
   box-sizing: border-box;
   padding: 3px;
-`;
-
-const StGpt = styled.div`
-  height: 40px;
-  width: 145px;
-  background-color: rgb(64, 65, 79);
-  border-radius: 10px;
-  border: 1px solid rgb(79, 79, 94);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 export default function Version() {

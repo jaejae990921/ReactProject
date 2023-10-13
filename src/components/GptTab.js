@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const StGpt = styled.div`
@@ -10,6 +11,7 @@ const StGpt = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   &:hover {
     svg#starts {
@@ -38,11 +40,36 @@ const Stspan = styled.span`
   transition: all 0.3s;
 `;
 
+const Hoverdiv4 = styled.div`
+  width: 300px;
+  height: 230px;
+  background-color: rgb(32, 33, 35);
+  position: absolute;
+  border-radius: 15px;
+  top: 55px;
+  right: 0px;
+  transition: all 0.15s;
+  display: ${(props) => (props.ishover ? 'block' : 'none')};
+`;
+
 export default function GptTab({ version }) {
   const vCheck = version == 3.5 ? true : false;
+  const [ishover, setIshover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIshover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIshover(false);
+  };
 
   return (
-    <StGpt version={vCheck}>
+    <StGpt
+      version={vCheck}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <Stdiv version={vCheck}>
         {version == 3.5 ? (
           <svg
@@ -83,6 +110,7 @@ export default function GptTab({ version }) {
           </svg>
         ) : null}
       </Stdiv>
+      {vCheck ? null : <Hoverdiv4 ishover={ishover}></Hoverdiv4>}
     </StGpt>
   );
 }
