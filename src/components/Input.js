@@ -2,11 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const Stdiv = styled.div`
-  background-color: #41414e;
+  background-color: #40414f;
   border-radius: 15px;
   display: flex;
+  // 750px 60px
   width: 750px;
-  height: 60px;
+  height: ${(props) => (props.isBig ? '200px' : '60px')};
   padding: 0 10px;
   align-items: center;
   justify-content: space-between;
@@ -14,14 +15,33 @@ const Stdiv = styled.div`
   bottom: 30px;
 `;
 
-const Stinput = styled.input`
-  width: 100%;
+const Sttextarea = styled.textarea`
+  max-width: 98%;
+  width: auto;
   border-radius: 15px;
+  height: ${(props) => (props.isBig ? '188px' : null)};
+  max-height: 200px;
+  overflow-y: auto;
   background-color: transparent;
   color: white;
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: 16px;
+  resize: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  position: absolute;
+  bottom: ${(props) => (props.isBig ? '8px' : '18px')};
+
+  // 스크롤바 커스텀
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 18px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #bbbbc6;
+    border-radius: 12px 12px 12px 12px;
+  }
 `;
 
 const Stbutton = styled.button`
@@ -35,6 +55,9 @@ const Stbutton = styled.button`
   background-color: ${(props) =>
     props.isInput ? 'rgb(25, 195, 125)' : 'transparent'};
   transition: background-color 0.3s;
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
 `;
 
 const Stsvg = styled.svg`
@@ -48,12 +71,19 @@ export default function Input({ addMsg }) {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
   const [isInput, setIsInput] = useState(false);
+  const [rows, setRows] = useState(1);
+  const [isBig, setIsBig] = useState(false);
 
   const API_KEY = process.env.REACT_APP_API_KEY;
 
   const sendMessage = async (e) => {
     e.preventDefault();
     addMsg(input);
+    setInput('');
+
+    setRows(1);
+    setIsInput(false);
+    setIsBig(false);
 
     // 호출할 ChatGPT API 엔드포인트와 API 키 설정
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
@@ -75,6 +105,7 @@ export default function Input({ addMsg }) {
       if (response.ok) {
         const data = await response.json();
         const chatResponse = data.choices[0].message.content;
+        addMsg(chatResponse);
         setResponse(chatResponse);
       } else {
         console.error('Failed to fetch response from ChatGPT API');
@@ -82,8 +113,6 @@ export default function Input({ addMsg }) {
     } catch (error) {
       console.error('Error while fetching response:', error);
     }
-
-    setInput('');
   };
 
   // input 값 변경 및 isInput 값 변경
@@ -94,24 +123,37 @@ export default function Input({ addMsg }) {
     } else {
       setIsInput(true);
     }
+
+    // 글자수 45 넘어가거나 \n 포함하고 있으면
+    if (e.target.value.length > 43 || e.target.value.includes('\n')) {
+      setIsBig(true);
+      setRows(7);
+    } else {
+      setIsBig(false);
+      setRows(1);
+    }
   };
 
-  // 버튼 클릭 테스트
-  const testButton = () => {
-    console.log('버튼누림');
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      sendMessage(e);
+    } else if (e.key === 'Enter' && e.shiftKey) {
+      setInput(input + '\n');
+      e.preventDefault();
+    }
   };
 
   return (
     <>
-      <Stdiv>
-        <Stinput
+      <Stdiv isBig={isBig}>
+        <Sttextarea
           type="text"
           value={input}
+          rows={rows}
+          cols={100}
+          isBig={isBig}
           onChange={inputChange}
-          onKeyDown={(e) => {
-            // 엔터키 전송
-            e.key === 'Enter' && sendMessage(e);
-          }}
+          onKeyDown={handleKeyPress}
           placeholder="Send a message"
         />
         <Stbutton isInput={isInput} onClick={sendMessage} disabled={!isInput}>
@@ -125,8 +167,6 @@ export default function Input({ addMsg }) {
           </Stsvg>
         </Stbutton>
       </Stdiv>
-
-      <div>{response}</div>
     </>
   );
 }
