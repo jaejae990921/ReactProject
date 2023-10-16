@@ -58,6 +58,7 @@ const Stbutton = styled.button`
   position: absolute;
   right: 10px;
   bottom: 12px;
+  cursor: ${(props) => (props.isInput ? 'pointer' : 'default')};
 `;
 
 const Stsvg = styled.svg`
