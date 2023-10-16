@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import Menu from './components/Menu';
 import Main from './components/Main';
+import { useDispatch, useSelector } from 'react-redux';
+import { isClosedAction } from './store/isClosed';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,6 +19,10 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+  const isClosed = useSelector((state) => state.isClosed);
+  console.log('isClosed : ', isClosed);
+  const dispatch = useDispatch();
+
   return (
     <>
       <GlobalStyle />
