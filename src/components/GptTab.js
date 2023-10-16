@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StGpt = styled.div`
   height: 43px;
@@ -40,6 +41,7 @@ const Stspan = styled.span`
   transition: all 0.3s;
 `;
 
+// GPT-4 호버 div
 const Hoverdiv4 = styled.div`
   width: 300px;
   height: 230px;
@@ -48,27 +50,111 @@ const Hoverdiv4 = styled.div`
   border-radius: 15px;
   top: 55px;
   right: 0px;
-  transition: all 0.15s;
-  display: ${(props) => (props.ishover ? 'block' : 'none')};
+  display: flex;
+  ${(props) =>
+    !props.ishover &&
+    css`
+      opacity: 0;
+      visibility: hidden;
+    `}
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s;
+`;
+
+// GPT-3.5 호버 div
+const Hoverdiv35 = styled.div`
+  width: 300px;
+  height: 110px;
+  background-color: rgb(32, 33, 35);
+  position: absolute;
+  border-radius: 15px;
+  top: 55px;
+  left: 0px;
+  display: flex;
+  ${(props) =>
+    !props.threeHover &&
+    css`
+      opacity: 0;
+      visibility: hidden;
+    `}
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s;
+`;
+
+// 호버 최상단 div
+const Detaildiv1 = styled.div`
+  width: 90%;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 20px;
+`;
+
+// 호버 중앙 div
+const Detaildiv2 = styled.div`
+  width: 90%;
+  margin-top: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(132, 131, 148);
+`;
+
+// GPT-4 호버 버튼
+const UpgradBtn = styled.button`
+  width: 90%;
+  background-color: ${(props) =>
+    props.btnHover ? 'rgb(154, 94, 229)' : 'rgb(171, 105, 255)'};
+  height: 40px;
+  font-size: 12px;
+  font-weight: bold;
+  color: ${(props) =>
+    props.btnHover ? 'rgb(227, 225, 229)' : 'rgb(252, 249, 255)'};
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 `;
 
 export default function GptTab({ version }) {
   const vCheck = version == 3.5 ? true : false;
   const [ishover, setIshover] = useState(false);
+  const [btnHover, setBtnHover] = useState(false);
+  const [threeHover, setThreeHover] = useState(false);
 
+  // 4버전 호버
   const handleMouseEnter = () => {
     setIshover(true);
   };
 
+  // 4버전 호버
   const handleMouseLeave = () => {
     setIshover(false);
+  };
+
+  // 3.5버전 호버
+  const handleThreeHover = () => {
+    setThreeHover(true);
+  };
+
+  // 3.5버전 호버
+  const handleThreeLeave = () => {
+    setThreeHover(false);
+  };
+
+  const handleBtnHover = () => {
+    setBtnHover(true);
+  };
+
+  const handleBtnLeave = () => {
+    setBtnHover(false);
   };
 
   return (
     <StGpt
       version={vCheck}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={vCheck ? handleThreeLeave : handleMouseLeave}
+      onMouseEnter={vCheck ? handleThreeHover : handleMouseEnter}
     >
       <Stdiv version={vCheck}>
         {version == 3.5 ? (
@@ -110,7 +196,32 @@ export default function GptTab({ version }) {
           </svg>
         ) : null}
       </Stdiv>
-      {vCheck ? null : <Hoverdiv4 ishover={ishover}></Hoverdiv4>}
+      {vCheck ? (
+        <Hoverdiv35 threeHover={threeHover}>
+          <Detaildiv1>
+            Our fastest model, great for most everyday tasks.
+          </Detaildiv1>
+          <Detaildiv2>Available to Free and Plus users</Detaildiv2>
+        </Hoverdiv35>
+      ) : (
+        <Hoverdiv4 ishover={ishover}>
+          <Detaildiv1>
+            Our most capable model, great for tasks that require creativity and
+            advanced reasoning.
+          </Detaildiv1>
+          <Detaildiv2>Available exclusively to Plus users</Detaildiv2>
+          <Detaildiv2>
+            GPT-4 currently has a cap of 50 messages every 3 hours.
+          </Detaildiv2>
+          <UpgradBtn
+            btnHover={btnHover}
+            onMouseEnter={handleBtnHover}
+            onMouseLeave={handleBtnLeave}
+          >
+            Upgrade to ChatGPT Plus
+          </UpgradBtn>
+        </Hoverdiv4>
+      )}
     </StGpt>
   );
 }
