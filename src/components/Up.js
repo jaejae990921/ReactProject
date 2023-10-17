@@ -10,7 +10,7 @@ const StDiv = styled.div`
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: all 0.2s;
 
   &:hover {
