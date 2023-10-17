@@ -19,10 +19,11 @@ const Stmaindiv = styled.div`
 `;
 
 const BottomDiv = styled.div`
-  /* width: 100%; */
+  width: calc(100% - 260px);
   height: 150px;
   position: absolute;
   bottom: 0px;
+  right: 0px;
   background-image: linear-gradient(
     180deg,
     rgba(53, 55, 64, 0),
@@ -79,7 +80,7 @@ export default function Main() {
           </ChatDiv>
         </>
       )}
-      {/* <BottomDiv /> */}
+      <BottomDiv />
       <Input addMsg={addMsg} />
       <Preview />
     </Stmaindiv>
