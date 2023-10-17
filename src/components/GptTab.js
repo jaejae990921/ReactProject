@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import styled from 'styled-components';
 import styled, { css } from 'styled-components';
 
 const StGpt = styled.div`
@@ -13,6 +12,7 @@ const StGpt = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  cursor: pointer;
 
   &:hover {
     svg#starts {
