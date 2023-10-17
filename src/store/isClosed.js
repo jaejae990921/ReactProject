@@ -18,4 +18,4 @@ const isClosedSlice = createSlice({
 });
 
 export default isClosedSlice.reducer;
-export const { isClosedAction } = isClosedSlice.actions;
+export const isClosedAction = isClosedSlice.actions;

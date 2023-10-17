@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import closed from '../assets/closed.JPG';
+import { useDispatch, useSelector } from 'react-redux';
+import { isClosedAction } from '../store/isClosed';
 
 const NewChatDiv = styled.div`
   width: 180px;
@@ -18,7 +20,6 @@ const NewChatDiv = styled.div`
 const ClosedDiv = styled.div`
   width: 40px;
   height: 100%;
-  background-color: green;
   background-color: rgb(32, 33, 35);
   border: 1.5px solid rgb(71, 71, 73);
   border-radius: 5px;
@@ -34,9 +35,17 @@ export default function NewBtn() {
     window.location.href = '/';
   };
 
+  const isClosed = useSelector((state) => state.isClosed);
+  const dispatch = useDispatch();
+
+  // CloseDiv 클릭 시 isClosed 값 변경
+  const handleClosed = () => {
+    dispatch(isClosedAction.true());
+  };
+
   return (
     <>
-      <NewChatDiv onClick={handleClick}>
+      <NewChatDiv onClick={handleClick} isClosed={isClosed}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
@@ -48,7 +57,7 @@ export default function NewBtn() {
         </svg>{' '}
         New Chat
       </NewChatDiv>
-      <ClosedDiv>
+      <ClosedDiv onClick={handleClosed}>
         <img src={closed} width={22} height={22} />
       </ClosedDiv>
     </>
