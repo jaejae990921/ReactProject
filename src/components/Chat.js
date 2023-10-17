@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import userImg from '../assets/user.png';
 import gptImg from '../assets/gpt.png';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { FiThumbsUp, FiThumbsDown } from 'react-icons/fi';
 
 const Mydiv = styled.div`
   width: 100%;
@@ -11,16 +12,18 @@ const Mydiv = styled.div`
   border-bottom: 1px solid rgb(46, 47, 56);
   justify-content: center;
   font-size: 15px;
+  color: rgb(220, 226, 217);
 `;
 
 const Gptdiv = styled.div`
   width: 100%;
-  height: 84px;
+  height: ${(props) => props.height}px;
   background-color: rgb(68, 70, 84);
   display: flex;
   border-bottom: 1px solid rgb(46, 47, 56);
   justify-content: center;
   font-size: 15px;
+  color: rgb(194, 201, 193);
 `;
 
 const ChWrap = styled.div`
@@ -42,10 +45,12 @@ const Chatdiv = styled.div`
   position: relative;
 `;
 
-const Svg1 = styled.svg`
+const Svg = styled.svg`
   position: absolute;
-  right: 0px;
   cursor: pointer;
+  right: ${(props) => props.right}px;
+  width: 18px;
+  height: 18px;
 `;
 
 export default function Chat(props) {
@@ -53,6 +58,8 @@ export default function Chat(props) {
   const [typedChat, setTypedChat] = useState(''); // 타이핑 중인 글자를 저장할 상태
   const [isTyping, setIsTyping] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [gptHeight, setGptHeight] = useState(84); // gpt div 높이
+  const gptRef = useRef(null);
 
   useEffect(() => {
     // 타이핑 효과를 시뮬레이션하기 위한 함수
@@ -60,13 +67,23 @@ export default function Chat(props) {
       setIsTyping(true);
       for (let i = 0; i < chat.length; i++) {
         setTypedChat(chat.substring(0, i + 1)); // i 번째 글자까지만 추가
-        await new Promise((resolve) => setTimeout(resolve, 50));
+
+        // 스크롤바를 항상 아래로 유지
+        gptRef.current.scrollTop = gptRef.current.scrollHeight;
+
+        // 타이핑 텍스트의 길이가 40의 배수일 때마다 높이를 20px씩 추가
+        if ((i + 1) % 65 === 0) {
+          setGptHeight((prevHeight) => prevHeight + 15);
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 25));
       }
       setIsTyping(false);
     };
 
     if (idx % 2 !== 0) {
       setTypedChat(''); // 새로운 메시지를 받을 때 typedChat 상태 초기화
+      setGptHeight(84);
       typeChat(); // 홀수 인덱스일 때 타이핑 효과 실행
     }
   }, [chat, idx]);
@@ -96,16 +113,15 @@ export default function Chat(props) {
           </ChWrap>
         </Mydiv>
       ) : (
-        <Gptdiv>
+        <Gptdiv ref={gptRef} height={gptHeight}>
           <ChWrap>
             <Stimg src={gptImg} />
             <Chatdiv>
               {isTyping ? typedChat : chat}{' '}
               {/* 타이핑 중일 때는 타이핑 중인 글자를 보여주고, 완료되면 전체 텍스트를 표시 */}
-              <Svg1
+              <Svg
+                right={-25}
                 xmlns="http://www.w3.org/2000/svg"
-                width={18}
-                height={18}
                 viewBox="0 0 448 512"
                 fill="rgb(165, 164, 182)"
                 onClick={handleCopyButtonClick}
@@ -117,7 +133,27 @@ export default function Chat(props) {
                       : 'M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z'
                   }
                 />
-              </Svg1>
+              </Svg>
+              <FiThumbsUp
+                style={{
+                  position: 'absolute',
+                  right: -55,
+                  cursor: 'pointer',
+                  width: '18',
+                  height: '18',
+                  color: 'rgb(165, 164, 182)',
+                }}
+              />
+              <FiThumbsDown
+                style={{
+                  position: 'absolute',
+                  right: -85,
+                  cursor: 'pointer',
+                  width: '18',
+                  height: '18',
+                  color: 'rgb(165, 164, 182)',
+                }}
+              />
             </Chatdiv>
           </ChWrap>
         </Gptdiv>
