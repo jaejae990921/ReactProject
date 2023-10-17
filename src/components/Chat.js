@@ -31,6 +31,7 @@ const ChWrap = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const Stimg = styled.img`
@@ -40,7 +41,7 @@ const Stimg = styled.img`
 `;
 
 const Chatdiv = styled.div`
-  width: 100%;
+  width: 650px;
   padding-left: 20px;
   position: relative;
 `;
@@ -73,7 +74,7 @@ export default function Chat(props) {
 
         // 타이핑 텍스트의 길이가 40의 배수일 때마다 높이를 20px씩 추가
         if ((i + 1) % 65 === 0) {
-          setGptHeight((prevHeight) => prevHeight + 15);
+          setGptHeight((prevHeight) => prevHeight + 20);
         }
 
         await new Promise((resolve) => setTimeout(resolve, 25));
