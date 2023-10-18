@@ -98,7 +98,7 @@ export default function Input({ addMsg }) {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
+          model: 'gpt-4',
           messages: [{ role: 'user', content: input }],
         }),
       });
