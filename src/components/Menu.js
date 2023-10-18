@@ -104,7 +104,6 @@ export default function Menu() {
             const today = new Date();
             const date = new Date(data.date);
             const day = today.getDate() - date.getDate();
-            console.log(data, day);
 
             if (day === 0) {
               // 오늘일경우
