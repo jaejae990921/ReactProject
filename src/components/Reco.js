@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RiSendPlane2Fill } from 'react-icons/ri';
 
 const RecoDiv = styled.div`
@@ -14,6 +14,20 @@ const RecoDiv = styled.div`
   padding: 10px;
   position: relative;
   cursor: pointer;
+  opacity: 0; /* 초기에는 보이지 않음 */
+  transform: translateY(100%); /* 초기 위치를 아래로 이동 */
+
+  &.slide-in {
+    // props.id에 따라 다른 animation-delay를 줘서 순차적으로 나타나게 함
+    animation: slideIn 0.2s ease forwards ${(props) => props.id * 0.1}s;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   &:hover {
     background-color: rgb(64, 65, 79);
@@ -33,9 +47,14 @@ const ContentDiv = styled.div`
 `;
 
 export default function Reco(props) {
-  const { title, content, addMsg } = props;
+  const { title, content, addMsg, id } = props;
   const [response, setResponse] = useState('');
   const [ishover, setIshover] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
+  useEffect(() => {
+    setHasEntered(true);
+  }, []);
 
   const handleMouseEnter = () => {
     setIshover(true);
@@ -89,6 +108,8 @@ export default function Reco(props) {
       onClick={sendMessage}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      className={hasEntered ? 'slide-in' : ''}
+      id={id}
     >
       <RiSendPlane2Fill />
       <TitleDiv>{title}</TitleDiv>
