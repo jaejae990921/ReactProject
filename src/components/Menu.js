@@ -70,6 +70,11 @@ const ChatHistoryWrapper = styled.div`
     &::-webkit-scrollbar-thumb {
       background: rgb(179, 181, 189);
       border-radius: 12px 12px 12px 12px;
+
+      &:hover {
+        /* 스크롤바에 마우스를 올렸을 때 */
+        background-color: rgb(236, 236, 240);
+      }
     }
   }
 `;
