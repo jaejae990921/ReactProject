@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { RiSendPlane2Fill } from 'react-icons/ri';
 
 const Stdiv = styled.div`
   background-color: #40414f;
   border-radius: 15px;
   display: flex;
-  // 750px 60px
   width: 750px;
   height: ${(props) => (props.isBig ? '200px' : '60px')};
   padding: 0 10px;
@@ -59,13 +59,6 @@ const Stbutton = styled.button`
   right: 10px;
   bottom: 12px;
   cursor: ${(props) => (props.isInput ? 'pointer' : 'default')};
-`;
-
-const Stsvg = styled.svg`
-  width: 20px;
-  height: 20px;
-  fill: ${(props) => (props.isInput ? 'white' : 'rgb(107,108,123)')};
-  transition: fill 0.3s;
 `;
 
 export default function Input({ addMsg }) {
@@ -158,14 +151,14 @@ export default function Input({ addMsg }) {
           placeholder="Send a message"
         />
         <Stbutton isInput={isInput} onClick={sendMessage} disabled={!isInput}>
-          <Stsvg
-            xmlns="http://www.w3.org/2000/svg"
-            className="bi bi-send"
-            viewBox="-1.5 0 20 15"
-            isInput={isInput}
-          >
-            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
-          </Stsvg>
+          <RiSendPlane2Fill
+            style={{
+              width: '20px',
+              height: '20px',
+              fill: isInput ? 'white' : 'rgb(107,108,123)',
+              transition: 'fill 0.3s',
+            }}
+          />
         </Stbutton>
       </Stdiv>
     </>
