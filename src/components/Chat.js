@@ -6,7 +6,8 @@ import { FiThumbsUp, FiThumbsDown } from 'react-icons/fi';
 
 const Mydiv = styled.div`
   width: 100%;
-  height: 84px;
+  /* height: 84px; */
+  height: ${(props) => props.height}px;
   background-color: rgb(52, 53, 65);
   display: flex;
   border-bottom: 1px solid rgb(46, 47, 56);
@@ -60,7 +61,17 @@ export default function Chat(props) {
   const [isTyping, setIsTyping] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [gptHeight, setGptHeight] = useState(84); // gpt div 높이
-  const gptRef = useRef(null);
+  const [myHeight, setMyHeight] = useState(84); // my div 높이
+  const gptRef = useRef(null); // gpt div의 ref
+  const myRef = useRef(null); // my div의 ref
+
+  const chatLen = chat.length; // chat의 길이를 저장
+  // chat의 길이에 따라 setMyHeight를 실행
+  useEffect(() => {
+    if (chatLen > 50) {
+      setMyHeight((prevHeight) => prevHeight + Math.floor(chatLen / 50) * 5);
+    }
+  }, [chatLen]);
 
   useEffect(() => {
     // 타이핑 효과를 시뮬레이션하기 위한 함수
@@ -73,8 +84,8 @@ export default function Chat(props) {
         gptRef.current.scrollTop = gptRef.current.scrollHeight;
 
         // 타이핑 텍스트의 길이가 40의 배수일 때마다 높이를 20px씩 추가
-        if ((i + 1) % 65 === 0) {
-          setGptHeight((prevHeight) => prevHeight + 20);
+        if ((i + 1) % 50 === 0) {
+          setGptHeight((prevHeight) => prevHeight + 15);
         }
 
         await new Promise((resolve) => setTimeout(resolve, 25));
@@ -107,7 +118,8 @@ export default function Chat(props) {
   return (
     <>
       {idx % 2 === 0 ? (
-        <Mydiv>
+        // chat의 길이에 따라 myHeight 변경
+        <Mydiv ref={myRef} height={myHeight}>
           <ChWrap>
             <Stimg src={userImg} />
             <Chatdiv>{chat}</Chatdiv>
