@@ -13,6 +13,14 @@ const Stdiv = styled.div`
   justify-content: space-between;
   position: absolute;
   bottom: 30px;
+
+  @media (max-width: 1050px) {
+    width: 600px;
+  }
+
+  @media (max-width: 890px) {
+    width: 500px;
+  }
 `;
 
 const Sttextarea = styled.textarea`

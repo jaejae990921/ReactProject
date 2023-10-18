@@ -14,6 +14,14 @@ const RecoWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 1050px) {
+    width: 630px;
+  }
+
+  @media (max-width: 890px) {
+    width: 530px;
+  }
 `;
 
 const RecoDiv = styled.div`

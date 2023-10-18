@@ -5,6 +5,14 @@ const Stdiv = styled.div`
   color: #c5c5d1;
   position: absolute;
   bottom: 10px;
+
+  @media screen and (max-width: 1050px) {
+    font-size: 10px;
+  }
+
+  @media screen and (max-width: 890px) {
+    font-size: 8px;
+  }
 `;
 
 export default function Preview() {
