@@ -22,17 +22,17 @@ export const dummyData = [
   },
   {
     id: 5,
-    date: '2023-10-10',
+    date: '2023-10-13',
     title: '2중 for문 사용법',
   },
   {
     id: 6,
-    date: '2023-10-10',
+    date: '2023-10-14',
     title: 'Sequelize 모델 설정',
   },
   {
     id: 7,
-    date: '2023-10-10',
+    date: '2023-10-15',
     title: 'REST API란 무엇인가?',
   },
   {
@@ -54,5 +54,15 @@ export const dummyData = [
     id: 11,
     date: '2023-09-01',
     title: 'React Router 사용법',
+  },
+  {
+    id: 12,
+    date: '2023-09-01',
+    title: '백엔드란?',
+  },
+  {
+    id: 13,
+    date: '2023-09-01',
+    title: 'scss와 css의 차이점',
   },
 ];
