@@ -7,7 +7,7 @@ const StGpt = styled.div`
   background-color: ${(props) =>
     props.version ? 'rgb(64, 65, 79)' : 'transparent'};
   border-radius: 8px;
-  border: none;
+  border: ${(props) => (props.version ? '1px solid rgb(79, 80, 96)' : 'none')};
   display: flex;
   align-items: center;
   justify-content: center;
