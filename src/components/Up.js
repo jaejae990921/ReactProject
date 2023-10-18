@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { FiUser } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 
 const StDiv = styled.div`
   width: 95%;
@@ -11,7 +12,8 @@ const StDiv = styled.div`
   box-sizing: border-box;
   padding: 10px;
   border-radius: 5px;
-  transition: all 0.2s;
+  transition: all 0.2s visibility 0s;
+  visibility: ${(props) => (props.isClosed ? 'hidden' : 'visible')};
 
   &:hover {
     background-color: rgb(52, 53, 65);
@@ -27,9 +29,11 @@ const UpgradeDiv = styled.div`
 `;
 
 export default function Up() {
+  const isClosed = useSelector((state) => state.isClosed);
+
   return (
     <>
-      <StDiv>
+      <StDiv isClosed={isClosed}>
         <FiUser style={{ width: '16', height: '16' }}></FiUser>
         <UpgradeDiv>Upgrade to Plus</UpgradeDiv>
       </StDiv>
