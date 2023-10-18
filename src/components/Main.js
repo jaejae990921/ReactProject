@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isClosedAction } from '../store/isClosed';
 import { BiQuestionMark } from 'react-icons/bi';
 import closed from '../assets/open.png';
+import Recommend from './Recommend';
 
 const Stmaindiv = styled.div`
   display: flex;
@@ -115,6 +116,7 @@ export default function Main() {
         <>
           <Version />
           <Title />
+          <Recommend addMsg={addMsg} />
         </>
       ) : (
         <>
@@ -125,9 +127,9 @@ export default function Main() {
             })}
             <BottomChat />
           </ChatDiv>
+          <BottomDiv isClosed={isClosed} />
         </>
       )}
-      <BottomDiv isClosed={isClosed} />
       <Input addMsg={addMsg} />
       <Preview />
       <OpenDiv onClick={handleOpen} isClosed={isClosed}>
