@@ -17,7 +17,7 @@ const Stmaindiv = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #353540;
+  background-color: rgb(52, 53, 65);
   padding-left: ${(props) => (props.isClosed ? '0px' : '260px')};
   z-index: ${(props) => (props.isClosed ? '2' : '1')};
   border: none;
@@ -63,7 +63,7 @@ const ChatDiv = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: #353540;
+  background-color: rgb(52, 53, 65);
 
   // 스크롤바 커스텀
   &::-webkit-scrollbar {
