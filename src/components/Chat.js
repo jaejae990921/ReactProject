@@ -6,14 +6,13 @@ import { FiThumbsUp, FiThumbsDown } from 'react-icons/fi';
 
 const Mydiv = styled.div`
   width: 100%;
-  /* height: 84px; */
   height: ${(props) => props.height}px;
   background-color: rgb(52, 53, 65);
   display: flex;
   border-bottom: 1px solid rgb(46, 47, 56);
   justify-content: center;
   font-size: 15px;
-  color: rgb(220, 226, 217);
+  color: rgb(236, 236, 240);
 `;
 
 const Gptdiv = styled.div`
@@ -24,7 +23,7 @@ const Gptdiv = styled.div`
   border-bottom: 1px solid rgb(46, 47, 56);
   justify-content: center;
   font-size: 15px;
-  color: rgb(194, 201, 193);
+  color: rgb(210, 213, 218);
 `;
 
 const ChWrap = styled.div`
@@ -39,6 +38,7 @@ const Stimg = styled.img`
   width: 35px;
   height: 35px;
   border-radius: 3px;
+  position: relative;
 `;
 
 const Chatdiv = styled.div`
