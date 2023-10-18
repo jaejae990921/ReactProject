@@ -20,6 +20,11 @@ const MenuWrapper = styled.div`
   opacity: ${(props) => (props.isClosed ? '0' : '1')};
   z-index: ${(props) => (props.isClosed ? '1' : '2')};
   transition: all 0.2s;
+
+  @media screen and (max-width: 790px) {
+    z-index: 5;
+    width: 100%;
+  }
 `;
 
 const BtnWrapper = styled.div`

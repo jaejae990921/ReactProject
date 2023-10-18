@@ -45,6 +45,10 @@ const Chatdiv = styled.div`
   width: 650px;
   padding-left: 20px;
   position: relative;
+
+  @media screen and (max-width: 970px) {
+    width: 400px;
+  }
 `;
 
 const Svg = styled.svg`

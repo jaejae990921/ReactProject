@@ -23,6 +23,10 @@ const Stmaindiv = styled.div`
   z-index: ${(props) => (props.isClosed ? '2' : '1')};
   border: none;
   transition: all 0.2s;
+
+  @media screen and (max-width: 790px) {
+    padding-left: 0px;
+  }
 `;
 
 const BottomDiv = styled.div`
