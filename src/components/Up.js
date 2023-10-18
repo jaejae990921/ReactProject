@@ -14,6 +14,7 @@ const StDiv = styled.div`
   border-radius: 5px;
   transition: all 0.2s visibility 0s;
   visibility: ${(props) => (props.isClosed ? 'hidden' : 'visible')};
+  cursor: pointer;
 
   &:hover {
     background-color: rgb(52, 53, 65);
