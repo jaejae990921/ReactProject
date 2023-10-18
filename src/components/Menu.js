@@ -97,6 +97,7 @@ export default function Menu() {
   let yesterdayF = false;
   let sevenF = false;
   let monthF = false;
+  let longF = false;
 
   return (
     <>
@@ -108,8 +109,10 @@ export default function Menu() {
           {dummyData.map((data) => {
             const today = new Date();
             const date = new Date(data.date);
-            const day = today.getDate() - date.getDate();
+            const timeDifference = today - date;
+            const day = Math.floor(timeDifference / (1000 * 60 * 60 * 24)) + 1;
 
+            console.log(data.date, day);
             if (day === 0) {
               // 오늘일경우
               if (todayF === false) {
@@ -171,7 +174,20 @@ export default function Menu() {
                 return <ChatHistory data={data} />;
               }
             } else {
-              return <ChatHistory data={data} />;
+              // 그 외의 경우
+              if (longF === false) {
+                // longF가 false면
+                longF = true; // true로 바꾸고 Long ago div 생성
+                return (
+                  <>
+                    <DayDiv>Long Time ago</DayDiv>
+                    <ChatHistory data={data} />
+                  </>
+                );
+              } else {
+                // Long ago가 이미 생성되었으면 그냥 ChatHistory만 생성
+                return <ChatHistory data={data} />;
+              }
             }
           })}
         </ChatHistoryWrapper>
