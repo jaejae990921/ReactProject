@@ -115,7 +115,7 @@ export default function Menu() {
             const today = new Date();
             const date = new Date(data.date);
             const timeDifference = today - date;
-            const day = Math.floor(timeDifference / (1000 * 60 * 60 * 24)) + 1;
+            const day = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
             console.log(data.date, day);
             if (day === 0) {
